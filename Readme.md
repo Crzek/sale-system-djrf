@@ -49,3 +49,6 @@ levantar servidor
 ```bash
 python manage.py runserver
 ```
+
+login en http://127.0.0.1:8000/admin/
+
