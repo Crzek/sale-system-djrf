@@ -29,6 +29,11 @@ Sistema de ventas para una tienda de productos electrónicos.
 
 ## django rest framework
 
+Primero debemos de acceder en sales_system
+```bash
+cd sales_system
+```
+
 crear un superusuario
 ```bash
 python manage.py createsuperuser
