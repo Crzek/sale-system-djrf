@@ -1,0 +1,9 @@
+#entornos virtuales
+.venv
+venv
+
+#varibles de entorno
+.env
+
+#base de datos
+db.sqlite3
