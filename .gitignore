@@ -7,3 +7,10 @@ venv
 
 #base de datos
 db.sqlite3
+
+#pycache
+__pycache__/
+*.pyc
+
+#migrations
+sale_system/sale_system/migrations/
