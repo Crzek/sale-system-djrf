@@ -15,7 +15,10 @@ from pathlib import Path
 
 import cloudinary
 import os
+
+# para varibles de entorno
 from dotenv import load_dotenv
+from decouple import Config
 
 load_dotenv()
 
@@ -27,12 +30,12 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/5.1/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'django-insecure-3woazo124p$11hui1^*$78si_wc)ufh3i&@dam665z8ahfyn$3'
+SECRET_KEY = Config('SECRET_KEY')
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = Config('DEBUG', cast=bool)
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['*']
 
 
 # Application definition
@@ -49,7 +52,9 @@ INSTALLED_APPS = [
     'django.contrib.contenttypes',
     'django.contrib.sessions',
     'django.contrib.messages',
-    'django.contrib.staticfiles',
+    'django.contrib.staticfiles',  # required for serving swagger ui's css/js files
+    'drf_yasg',
+    "corsheaders",
 ]
 
 # configuración de autenticación
@@ -65,6 +70,7 @@ REST_FRAMEWORK = {
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
+    "corsheaders.middleware.CorsMiddleware",
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
@@ -98,8 +104,12 @@ WSGI_APPLICATION = 'sale_system.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
+        "ENGINE": Config('ENGINE'),
+        "NAME": Config('DB_NAME'),
+        "USER": Config('DB_USER'),
+        "PASSWORD": Config('DB_PASSWORD'),
+        "HOST": Config('DB_HOST'),
+        "PORT": Config('DB_PORT'),
     }
 }
 
@@ -168,3 +178,5 @@ SIMPLE_JWT = {
 
     "TOKEN_OBTAIN_SERIALIZER": "api_auth.serializers.LoginSerializer",
 }
+# cors
+CORS_ALLOW_ALL_ORIGINS: bool = True
