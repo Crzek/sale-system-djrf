@@ -1,0 +1,39 @@
+version: '3.8'
+
+services:
+  api-djrf:
+    container_name: sales-api
+    build:
+      #./sale_system
+      #quiero que el context sea el directorio raiz
+      context: ../
+      dockerfile: ./sale_system/Dockerfile
+    volumes:
+      - ../sale_system:/usr/src/app
+      - ../sale_system/static:/usr/src/app/static
+    ports:
+      # - ${APP_PORT}:${APP_PORT}
+      - 8000:8000
+    env_file:
+      # - ./${COMPOSE_PROJECT_NAME}/.env
+      - ../.env
+      # command: gunicorn sale_system.wsgi:application --bind ${HOST}:${PORT}
+    command: sleep infinity
+
+  nginx:
+    container_name: sales-proxy
+    build:
+      context: ../nginx
+      dockerfile: Dockerfile
+    volumes:
+      - ./sale_system/static:/usr/src/app/static
+    ports:
+      # - ${NGINX_PORT}:${NGINX_PORT}
+      - 80:80
+    depends_on:
+      - api-djrf
+      # env_file:
+      # - ./.env
+
+volumes:
+  static_volume:

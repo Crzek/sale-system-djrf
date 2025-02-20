@@ -33,9 +33,9 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = Config('SECRET_KEY')
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = Config('DEBUG', cast=bool)
+DEBUG = Config('DEBUG')
 
-ALLOWED_HOSTS = ['*']
+ALLOWED_HOSTS = []
 
 
 # Application definition
@@ -102,14 +102,20 @@ WSGI_APPLICATION = 'sale_system.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/5.1/ref/settings/#databases
 
+# DATABASES = {
+#     'default': {
+#         "ENGINE": Config('ENGINE'),
+#         "NAME": Config('DB_NAME'),
+#         "USER": Config('DB_USER'),
+#         "PASSWORD": Config('DB_PASSWORD'),
+#         "HOST": Config('DB_HOST'),
+#         "PORT": Config('DB_PORT'),
+#     }
+# }
 DATABASES = {
     'default': {
-        "ENGINE": Config('ENGINE'),
-        "NAME": Config('DB_NAME'),
-        "USER": Config('DB_USER'),
-        "PASSWORD": Config('DB_PASSWORD'),
-        "HOST": Config('DB_HOST'),
-        "PORT": Config('DB_PORT'),
+        "ENGINE": 'django.db.backends.sqlite3',
+        "NAME": BASE_DIR / 'db.sqlite3',
     }
 }
 
